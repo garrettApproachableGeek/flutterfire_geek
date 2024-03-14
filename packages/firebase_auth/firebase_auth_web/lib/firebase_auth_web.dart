@@ -115,7 +115,7 @@ class FirebaseAuthWeb extends FirebaseAuthPlatform {
             }
           }
         }
-        await authDelegate.onWaitInitState();
+        // await authDelegate.onWaitInitState();
       },
     );
     FirebaseAuthPlatform.instance = FirebaseAuthWeb.instance;

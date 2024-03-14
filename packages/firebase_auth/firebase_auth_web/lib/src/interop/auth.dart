@@ -359,28 +359,28 @@ class Auth extends JsObjectWrapper<auth_interop.AuthJsImpl> {
 
   auth_interop.AuthSettings get settings => jsObject.settings;
 
-  User? _initUser;
+  // User? _initUser;
 
-  /// On web we need to wait for the first onAuthStateChanged event to fire
-  /// in order to be sure that the currentUser is set.
-  /// To preserve behavior on web and mobile we store the initial user
-  /// in `_initUser` and add it manually to the `_changeController`.
-  Future<void> onWaitInitState() async {
-    final completer = Completer();
-    final nextWrapper = (auth_interop.UserJsImpl? user) {
-      _initUser = User.getInstance(user);
-      completer.complete();
-    };
+  // /// On web we need to wait for the first onAuthStateChanged event to fire
+  // /// in order to be sure that the currentUser is set.
+  // /// To preserve behavior on web and mobile we store the initial user
+  // /// in `_initUser` and add it manually to the `_changeController`.
+  // Future<void> onWaitInitState() async {
+  //   final completer = Completer();
+  //   final nextWrapper = (auth_interop.UserJsImpl? user) {
+  //     _initUser = User.getInstance(user);
+  //     completer.complete();
+  //   };
 
-    final errorWrapper = (JSAny e) => _changeController!.addError(e);
+  //   final errorWrapper = (JSAny e) => _changeController!.addError(e);
 
-    final unsubscribe =
-        jsObject.onAuthStateChanged(nextWrapper.toJS, errorWrapper.toJS);
+  //   final unsubscribe =
+  //       jsObject.onAuthStateChanged(nextWrapper.toJS, errorWrapper.toJS);
 
-    await completer.future;
+  //   await completer.future;
 
-    await (unsubscribe.dartify()! as Future<void> Function())();
-  }
+  //   await (unsubscribe.dartify()! as Future<void> Function())();
+  // }
 
   JSFunction? _onAuthUnsubscribe;
 
@@ -419,7 +419,7 @@ class Auth extends JsObjectWrapper<auth_interop.AuthJsImpl> {
         sync: true,
       );
 
-      _changeController!.add(_initUser);
+      // _changeController!.add(_initUser);
     }
     return _changeController!.stream;
   }
